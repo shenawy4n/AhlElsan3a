@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { PublicReview, ProviderRatingSummary, ReviewRecord } from "./reviews.server";
 
 export const getProviderReviews = createServerFn({ method: "GET" })
@@ -23,21 +24,25 @@ export const getAllProvidersRatingSummaries = createServerFn({ method: "GET" })
   });
 
 export const adminListReviews = createServerFn({ method: "GET" })
-  .validator((d?: { status?: "pending" | "approved" | "rejected" | "all" }) => d)
-  .handler(async ({ data }): Promise<ReviewRecord[]> => {
+  .middleware([requireSupabaseAuth])
+  .validator((d?: { status?: "pending" | "approved" | "rejected" | "all" }) =>
+    z.object({ status: z.enum(["pending", "approved", "rejected", "all"]).optional() }).optional().parse(d)
+  )
+  .handler(async ({ data, context }): Promise<ReviewRecord[]> => {
+    const { data: level } = await context.supabase.rpc("my_admin_level");
+    if (!level) throw new Error("Forbidden");
     const { adminGetReviews } = await import("./reviews.server");
     return adminGetReviews(data?.status);
   });
 
 export const adminModerateReview = createServerFn({ method: "POST" })
-  .validator(
-    (d: {
-      reviewId: string;
-      action: "approve" | "reject" | "delete";
-      adminId?: string;
-    }) => d
+  .middleware([requireSupabaseAuth])
+  .validator((d: { reviewId: string; action: "approve" | "reject" | "delete"; adminId?: string }) =>
+    z.object({ reviewId: z.string().uuid(), action: z.enum(["approve", "reject", "delete"]) }).parse(d)
   )
-  .handler(async ({ data }): Promise<{ ok: boolean }> => {
-    const { adminModerateReview: moderate } = await import("./reviews.server");
-    return moderate(data.reviewId, data.action, data.adminId);
+  .handler(async ({ data, context }): Promise<{ ok: boolean }> => {
+    // Database functions verify the caller is an admin and write the audit log.
+    const fn = data.action === "approve" ? "approve_review" : data.action === "reject" ? "reject_review" : "delete_review";
+    const { error } = await context.supabase.rpc(fn, { _review_id: data.reviewId });
+    return { ok: !error };
   });
