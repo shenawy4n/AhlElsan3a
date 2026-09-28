@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_users: {
+        Row: {
+          active: boolean
+          added_by_email: string | null
+          created_at: string
+          email: string
+          id: string
+          is_owner: boolean
+        }
+        Insert: {
+          active?: boolean
+          added_by_email?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          is_owner?: boolean
+        }
+        Update: {
+          active?: boolean
+          added_by_email?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          is_owner?: boolean
+        }
+        Relationships: []
+      }
       analytics_events: {
         Row: {
           category_id: string | null
@@ -186,6 +213,7 @@ export type Database = {
           created_at: string
           description: string | null
           experience_id: string | null
+          has_whatsapp: boolean | null
           id: string
           is_premium: boolean
           is_verified: boolean
@@ -207,6 +235,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           experience_id?: string | null
+          has_whatsapp?: boolean | null
           id?: string
           is_premium?: boolean
           is_verified?: boolean
@@ -228,6 +257,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           experience_id?: string | null
+          has_whatsapp?: boolean | null
           id?: string
           is_premium?: boolean
           is_verified?: boolean
@@ -349,6 +379,21 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_add: { Args: { _email: string }; Returns: string }
+      admin_revoke: { Args: { _id: string }; Returns: undefined }
+      admin_set_active: {
+        Args: { _active: boolean; _id: string }
+        Returns: undefined
+      }
+      claim_first_admin: { Args: never; Returns: boolean }
+      contact_provider: {
+        Args: { _kind: string; _provider_id: string }
+        Returns: {
+          phone: string
+          secondary_phone: string
+          whatsapp: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -356,6 +401,8 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_owner: { Args: { _user_id: string }; Returns: boolean }
+      my_admin_level: { Args: never; Returns: string }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
