@@ -486,6 +486,50 @@ export type Database = {
           },
         ]
       }
+      reviews: {
+        Row: {
+          comment: string | null
+          created_at: string
+          id: string
+          provider_id: string
+          rating: number
+          reviewed_at: string | null
+          reviewed_by_email: string | null
+          reviewer_name: string
+          status: string
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          provider_id: string
+          rating: number
+          reviewed_at?: string | null
+          reviewed_by_email?: string | null
+          reviewer_name: string
+          status?: string
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          provider_id?: string
+          rating?: number
+          reviewed_at?: string | null
+          reviewed_by_email?: string | null
+          reviewer_name?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "providers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       service_suggestions: {
         Row: {
           created_at: string
@@ -543,6 +587,7 @@ export type Database = {
         Args: { _application_id: string }
         Returns: string
       }
+      approve_review: { Args: { _review_id: string }; Returns: undefined }
       check_rate_limit: {
         Args: { _form_type: string; _ip: string }
         Returns: boolean
@@ -557,6 +602,7 @@ export type Database = {
           whatsapp: string
         }[]
       }
+      delete_review: { Args: { _review_id: string }; Returns: undefined }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -567,10 +613,19 @@ export type Database = {
       is_owner: { Args: { _user_id: string }; Returns: boolean }
       my_admin_level: { Args: never; Returns: string }
       pending_applications_count: { Args: never; Returns: number }
+      pending_reviews_count: { Args: never; Returns: number }
+      provider_rating: {
+        Args: { _provider_id: string }
+        Returns: {
+          avg_rating: number
+          review_count: number
+        }[]
+      }
       reject_application: {
         Args: { _application_id: string; _reason?: string }
         Returns: undefined
       }
+      reject_review: { Args: { _review_id: string }; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
