@@ -297,6 +297,48 @@ export type Database = {
           },
         ]
       }
+      rate_limit_events: {
+        Row: {
+          created_at: string
+          form_type: string
+          id: string
+          ip: string
+        }
+        Insert: {
+          created_at?: string
+          form_type: string
+          id?: string
+          ip: string
+        }
+        Update: {
+          created_at?: string
+          form_type?: string
+          id?: string
+          ip?: string
+        }
+        Relationships: []
+      }
+      rate_limit_policies: {
+        Row: {
+          form_type: string
+          max_requests: number
+          updated_at: string
+          window_seconds: number
+        }
+        Insert: {
+          form_type: string
+          max_requests?: number
+          updated_at?: string
+          window_seconds?: number
+        }
+        Update: {
+          form_type?: string
+          max_requests?: number
+          updated_at?: string
+          window_seconds?: number
+        }
+        Relationships: []
+      }
       reports: {
         Row: {
           created_at: string
@@ -385,7 +427,12 @@ export type Database = {
         Args: { _active: boolean; _id: string }
         Returns: undefined
       }
+      check_rate_limit: {
+        Args: { _form_type: string; _ip: string }
+        Returns: boolean
+      }
       claim_first_admin: { Args: never; Returns: boolean }
+      cleanup_rate_limit_events: { Args: never; Returns: number }
       contact_provider: {
         Args: { _kind: string; _provider_id: string }
         Returns: {
