@@ -37,6 +37,8 @@ function AuthPage() {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setBusy(false);
     if (error) { toast.error("البريد أو كلمة السر غلط"); return; }
+    const redirect = new URLSearchParams(window.location.search).get("redirect");
+    if (redirect && redirect.startsWith("/") && !redirect.startsWith("//")) { window.location.href = redirect; return; }
     navigate({ to: "/admin" });
   }
 

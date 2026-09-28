@@ -1,6 +1,6 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
-import { supabaseAnon } from "../supabase";
+import { supabaseForCaller } from "../supabase";
 
 const SELECT = "id,name,description,services,price_description,is_verified,is_premium, categories(name), areas(name)";
 
@@ -21,8 +21,8 @@ export default defineTool({
     limit: z.number().int().min(1).max(50).optional(),
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
-  handler: async ({ query, category_id, area_id, limit }) => {
-    let q = supabaseAnon().from("providers").select(SELECT).eq("status", "active");
+  handler: async ({ query, category_id, area_id, limit }, ctx) => {
+    let q = supabaseForCaller(ctx.getToken()).from("providers").select(SELECT).eq("status", "active");
     if (category_id) q = q.eq("category_id", category_id);
     if (area_id) q = q.eq("area_id", area_id);
     const s = query?.replace(/[%,()_\\*]/g, "").trim();
