@@ -14,6 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
+      analytics_events: {
+        Row: {
+          category_id: string | null
+          created_at: string
+          event_type: string
+          id: string
+          provider_id: string | null
+          query: string | null
+        }
+        Insert: {
+          category_id?: string | null
+          created_at?: string
+          event_type: string
+          id?: string
+          provider_id?: string | null
+          query?: string | null
+        }
+        Update: {
+          category_id?: string | null
+          created_at?: string
+          event_type?: string
+          id?: string
+          provider_id?: string | null
+          query?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_events_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "analytics_events_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "providers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      app_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: string | null
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: string | null
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: string | null
+        }
+        Relationships: []
+      }
       areas: {
         Row: {
           created_at: string
@@ -35,6 +95,33 @@ export type Database = {
           name?: string
           status?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      audit_log: {
+        Row: {
+          action: string
+          admin_email: string | null
+          admin_id: string | null
+          created_at: string
+          id: string
+          target: string | null
+        }
+        Insert: {
+          action: string
+          admin_email?: string | null
+          admin_id?: string | null
+          created_at?: string
+          id?: string
+          target?: string | null
+        }
+        Update: {
+          action?: string
+          admin_email?: string | null
+          admin_id?: string | null
+          created_at?: string
+          id?: string
+          target?: string | null
         }
         Relationships: []
       }
@@ -68,14 +155,40 @@ export type Database = {
         }
         Relationships: []
       }
+      experience_options: {
+        Row: {
+          created_at: string
+          id: string
+          label: string
+          sort_order: number
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          label: string
+          sort_order?: number
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          label?: string
+          sort_order?: number
+          status?: string
+        }
+        Relationships: []
+      }
       providers: {
         Row: {
           area_id: string
           category_id: string
           created_at: string
           description: string | null
+          experience_id: string | null
           id: string
           is_premium: boolean
+          is_verified: boolean
           name: string
           phone: string
           photo_url: string | null
@@ -93,8 +206,10 @@ export type Database = {
           category_id: string
           created_at?: string
           description?: string | null
+          experience_id?: string | null
           id?: string
           is_premium?: boolean
+          is_verified?: boolean
           name: string
           phone: string
           photo_url?: string | null
@@ -112,8 +227,10 @@ export type Database = {
           category_id?: string
           created_at?: string
           description?: string | null
+          experience_id?: string | null
           id?: string
           is_premium?: boolean
+          is_verified?: boolean
           name?: string
           phone?: string
           photo_url?: string | null
@@ -139,6 +256,13 @@ export type Database = {
             columns: ["category_id"]
             isOneToOne: false
             referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "providers_experience_id_fkey"
+            columns: ["experience_id"]
+            isOneToOne: false
+            referencedRelation: "experience_options"
             referencedColumns: ["id"]
           },
         ]
@@ -177,6 +301,27 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      service_suggestions: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          status?: string
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
