@@ -22,6 +22,7 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as CategoryIdRouteImport } from './routes/category.$id'
 import { Route as ProviderIdRouteImport } from './routes/provider.$id'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable/oauth/consent'
+import { Route as ApiPublicAppConfigRouteImport } from './routes/api/public/app-config'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -88,6 +89,11 @@ const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
   path: '/.lovable/oauth/consent',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicAppConfigRoute = ApiPublicAppConfigRouteImport.update({
+  id: '/api/public/app-config',
+  path: '/api/public/app-config',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/category/$id': typeof CategoryIdRoute
   '/provider/$id': typeof ProviderIdRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/api/public/app-config': typeof ApiPublicAppConfigRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/category/$id': typeof CategoryIdRoute
   '/provider/$id': typeof ProviderIdRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/api/public/app-config': typeof ApiPublicAppConfigRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/category/$id': typeof CategoryIdRoute
   '/provider/$id': typeof ProviderIdRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/api/public/app-config': typeof ApiPublicAppConfigRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
     | '/category/$id'
     | '/provider/$id'
     | '/.lovable/oauth/consent'
+    | '/api/public/app-config'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/category/$id'
     | '/provider/$id'
     | '/.lovable/oauth/consent'
+    | '/api/public/app-config'
   id:
     | '__root__'
     | '/'
@@ -177,6 +188,7 @@ export interface FileRouteTypes {
     | '/category/$id'
     | '/provider/$id'
     | '/.lovable/oauth/consent'
+    | '/api/public/app-config'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -192,6 +204,7 @@ export interface RootRouteChildren {
   CategoryIdRoute: typeof CategoryIdRoute
   ProviderIdRoute: typeof ProviderIdRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
+  ApiPublicAppConfigRoute: typeof ApiPublicAppConfigRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -287,6 +300,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotlovableOauthConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/app-config': {
+      id: '/api/public/app-config'
+      path: '/api/public/app-config'
+      fullPath: '/api/public/app-config'
+      preLoaderRoute: typeof ApiPublicAppConfigRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -315,6 +335,7 @@ const rootRouteChildren: RootRouteChildren = {
   CategoryIdRoute: CategoryIdRoute,
   ProviderIdRoute: ProviderIdRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
+  ApiPublicAppConfigRoute: ApiPublicAppConfigRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
