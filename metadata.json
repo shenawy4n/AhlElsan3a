@@ -1,0 +1,8 @@
+{
+  "name": "أهل الصنعة — دليل خدمات القرية",
+  "description": "دليل رقمي محلي لأرقام الصنايعية والحرفيين وأصحاب الخدمات في القرى والمناطق المصرية مع الاتصال المباشر والواتساب.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

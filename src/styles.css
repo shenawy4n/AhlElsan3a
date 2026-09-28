@@ -1,0 +1,124 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * أهل الصنعة — design system
+ * Warm village signage: sand paper, nile-green actions, clay accents.
+ * All colors are oklch semantic tokens. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --font-sans: "Tajawal", system-ui, sans-serif;
+  --font-display: "Cairo", system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-foreground: var(--whatsapp-foreground);
+  --color-premium: var(--premium);
+  --color-premium-foreground: var(--premium-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --shadow-card: 0 1px 2px oklch(0.3 0.03 140 / 0.06), 0 6px 18px -12px oklch(0.3 0.03 140 / 0.35);
+}
+
+:root {
+  --radius: 0.9rem;
+  --background: oklch(0.958 0.018 88);
+  --foreground: oklch(0.255 0.019 145);
+  --card: oklch(0.99 0.009 88);
+  --card-foreground: oklch(0.255 0.019 145);
+  --popover: oklch(0.99 0.009 88);
+  --popover-foreground: oklch(0.255 0.019 145);
+  --primary: oklch(0.45 0.085 163);
+  --primary-foreground: oklch(0.985 0.012 88);
+  --secondary: oklch(0.925 0.025 88);
+  --secondary-foreground: oklch(0.3 0.02 150);
+  --muted: oklch(0.925 0.022 88);
+  --muted-foreground: oklch(0.505 0.018 140);
+  --accent: oklch(0.6 0.135 48);
+  --accent-foreground: oklch(0.985 0.012 88);
+  --destructive: oklch(0.55 0.19 27);
+  --destructive-foreground: oklch(0.985 0.012 88);
+  --whatsapp: oklch(0.585 0.135 155);
+  --whatsapp-foreground: oklch(0.985 0.012 88);
+  --premium: oklch(0.6 0.135 48);
+  --premium-foreground: oklch(0.985 0.012 88);
+  --border: oklch(0.875 0.024 86);
+  --input: oklch(0.875 0.024 86);
+  --ring: oklch(0.45 0.085 163);
+  --sidebar: oklch(0.99 0.009 88);
+  --sidebar-foreground: oklch(0.255 0.019 145);
+  --sidebar-primary: oklch(0.45 0.085 163);
+  --sidebar-primary-foreground: oklch(0.985 0.012 88);
+  --sidebar-accent: oklch(0.925 0.022 88);
+  --sidebar-accent-foreground: oklch(0.3 0.02 150);
+  --sidebar-border: oklch(0.875 0.024 86);
+  --sidebar-ring: oklch(0.45 0.085 163);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 1.35;
+  }
+}
+
+@utility surface {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+}
