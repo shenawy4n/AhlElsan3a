@@ -206,6 +206,103 @@ export type Database = {
         }
         Relationships: []
       }
+      provider_applications: {
+        Row: {
+          area_id: string
+          category_id: string
+          created_at: string
+          description: string | null
+          experience_id: string | null
+          has_workshop: boolean
+          id: string
+          is_emergency_24h: boolean
+          name: string
+          phone: string
+          photo_url: string | null
+          price_description: string | null
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by_email: string | null
+          services: string | null
+          status: string
+          whatsapp: string | null
+          working_hours: string | null
+          working_hours_structured: Json | null
+          workshop_address: string | null
+          workshop_name: string | null
+        }
+        Insert: {
+          area_id: string
+          category_id: string
+          created_at?: string
+          description?: string | null
+          experience_id?: string | null
+          has_workshop?: boolean
+          id?: string
+          is_emergency_24h?: boolean
+          name: string
+          phone: string
+          photo_url?: string | null
+          price_description?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by_email?: string | null
+          services?: string | null
+          status?: string
+          whatsapp?: string | null
+          working_hours?: string | null
+          working_hours_structured?: Json | null
+          workshop_address?: string | null
+          workshop_name?: string | null
+        }
+        Update: {
+          area_id?: string
+          category_id?: string
+          created_at?: string
+          description?: string | null
+          experience_id?: string | null
+          has_workshop?: boolean
+          id?: string
+          is_emergency_24h?: boolean
+          name?: string
+          phone?: string
+          photo_url?: string | null
+          price_description?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by_email?: string | null
+          services?: string | null
+          status?: string
+          whatsapp?: string | null
+          working_hours?: string | null
+          working_hours_structured?: Json | null
+          workshop_address?: string | null
+          workshop_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "provider_applications_area_id_fkey"
+            columns: ["area_id"]
+            isOneToOne: false
+            referencedRelation: "areas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_applications_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_applications_experience_id_fkey"
+            columns: ["experience_id"]
+            isOneToOne: false
+            referencedRelation: "experience_options"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       providers: {
         Row: {
           area_id: string
@@ -214,7 +311,9 @@ export type Database = {
           description: string | null
           experience_id: string | null
           has_whatsapp: boolean | null
+          has_workshop: boolean
           id: string
+          is_emergency_24h: boolean
           is_premium: boolean
           is_verified: boolean
           name: string
@@ -228,6 +327,9 @@ export type Database = {
           updated_at: string
           whatsapp: string | null
           working_hours: string | null
+          working_hours_structured: Json | null
+          workshop_address: string | null
+          workshop_name: string | null
         }
         Insert: {
           area_id: string
@@ -236,7 +338,9 @@ export type Database = {
           description?: string | null
           experience_id?: string | null
           has_whatsapp?: boolean | null
+          has_workshop?: boolean
           id?: string
+          is_emergency_24h?: boolean
           is_premium?: boolean
           is_verified?: boolean
           name: string
@@ -250,6 +354,9 @@ export type Database = {
           updated_at?: string
           whatsapp?: string | null
           working_hours?: string | null
+          working_hours_structured?: Json | null
+          workshop_address?: string | null
+          workshop_name?: string | null
         }
         Update: {
           area_id?: string
@@ -258,7 +365,9 @@ export type Database = {
           description?: string | null
           experience_id?: string | null
           has_whatsapp?: boolean | null
+          has_workshop?: boolean
           id?: string
+          is_emergency_24h?: boolean
           is_premium?: boolean
           is_verified?: boolean
           name?: string
@@ -272,6 +381,9 @@ export type Database = {
           updated_at?: string
           whatsapp?: string | null
           working_hours?: string | null
+          working_hours_structured?: Json | null
+          workshop_address?: string | null
+          workshop_name?: string | null
         }
         Relationships: [
           {
@@ -427,6 +539,10 @@ export type Database = {
         Args: { _active: boolean; _id: string }
         Returns: undefined
       }
+      approve_application: {
+        Args: { _application_id: string }
+        Returns: string
+      }
       check_rate_limit: {
         Args: { _form_type: string; _ip: string }
         Returns: boolean
@@ -450,6 +566,11 @@ export type Database = {
       }
       is_owner: { Args: { _user_id: string }; Returns: boolean }
       my_admin_level: { Args: never; Returns: string }
+      pending_applications_count: { Args: never; Returns: number }
+      reject_application: {
+        Args: { _application_id: string; _reason?: string }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
