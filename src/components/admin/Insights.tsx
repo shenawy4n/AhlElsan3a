@@ -360,8 +360,8 @@ export function Applications() {
     if (!approve) { reason = window.prompt("سبب الرفض")?.trim() ?? ""; if (!reason) return; }
     setBusy(id);
     const { error } = approve
-      ? await supabase.rpc("approve_application", { _id: id })
-      : await supabase.rpc("reject_application", { _id: id, _reason: reason });
+      ? await supabase.rpc("approve_application", { _application_id: id })
+      : await supabase.rpc("reject_application", { _application_id: id, _reason: reason });
     setBusy(null);
     if (error) { const k = Object.keys(APP_ERR).find((x) => error.message.includes(x)); toast.error(k ? APP_ERR[k]! : "حصلت مشكلة"); return; }
     toast.success(approve ? "تم القبول ونشر الصنايعي" : "تم الرفض");

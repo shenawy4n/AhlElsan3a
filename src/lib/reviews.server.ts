@@ -39,7 +39,7 @@ export async function createReview(data: {
     provider_id: data.provider_id,
     rating: data.rating,
     comment: data.comment,
-    reviewer_name: data.reviewer_name?.trim() || null,
+    reviewer_name: data.reviewer_name?.trim() || "زائر",
     status: "pending" as const,
     created_at: new Date().toISOString(),
   };
@@ -189,7 +189,7 @@ export async function adminModerateReview(
         .update({
           status: newStatus,
           reviewed_at: new Date().toISOString(),
-          reviewed_by: adminId || null,
+          reviewed_by_email: adminId || null,
         })
         .eq("id", reviewId);
       if (error) {
