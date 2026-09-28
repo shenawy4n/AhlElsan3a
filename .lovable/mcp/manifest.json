@@ -3,7 +3,12 @@
   "sdk_version": "3.0.4",
   "path": "/mcp",
   "auth": {
-    "type": "none"
+    "type": "oauth",
+    "issuer": "https://nukvihjhdvahbtgrqkxy.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ],
+    "jwks_uri": "https://nukvihjhdvahbtgrqkxy.supabase.co/auth/v1/.well-known/jwks.json"
   },
   "mcp": {
     "server": {
