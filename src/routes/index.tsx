@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Search, MapPin, ShieldCheck, Lightbulb, UserPlus, Zap } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/supabase-runtime";
 import { submitPublicForm, publicFormError } from "@/lib/public-forms.functions";
 import { categoriesQuery, areasQuery, providersQuery } from "@/lib/directory";
 import { ProviderCard } from "@/components/ProviderCard";
