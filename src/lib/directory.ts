@@ -59,7 +59,11 @@ export function isPremiumActive(p: Pick<Provider, "is_premium" | "premium_expire
   return new Date(p.premium_expires_at).getTime() > Date.now();
 }
 
+// Reference lists barely change, so they stay fresh in memory for a long time.
+const LONG_LIVED = { staleTime: 30 * 60_000, gcTime: 60 * 60_000 };
+
 export const categoriesQuery = {
+  ...LONG_LIVED,
   queryKey: ["categories"],
   queryFn: async (): Promise<Category[]> => {
     const { data, error } = await supabase
@@ -73,6 +77,7 @@ export const categoriesQuery = {
 };
 
 export const areasQuery = {
+  ...LONG_LIVED,
   queryKey: ["areas"],
   queryFn: async (): Promise<Area[]> => {
     const { data, error } = await supabase
@@ -125,6 +130,7 @@ export function providersQuery(opts: {
 }
 
 export const experienceQuery = {
+  ...LONG_LIVED,
   queryKey: ["experience"],
   queryFn: async (): Promise<ExperienceOption[]> => {
     const { data, error } = await supabase
