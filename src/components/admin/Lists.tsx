@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Pencil, Eye, EyeOff, Trash2, ArrowUp, ArrowDown, Check, X } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/supabase-runtime";
 import { CategoryIcon, ICON_NAMES } from "@/components/CategoryIcon";
 import type { Category } from "@/lib/directory";
 import { input, btn, useAll } from "./shared";

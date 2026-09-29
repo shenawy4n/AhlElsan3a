@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { LogOut } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/supabase-runtime";
 import { Admins } from "@/components/admin/Admins";
 import { Providers } from "@/components/admin/Providers";
 import { Categories, Areas } from "@/components/admin/Lists";

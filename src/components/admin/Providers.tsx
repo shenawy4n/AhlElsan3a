@@ -2,7 +2,7 @@ import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, Eye, EyeOff, Star, BadgeCheck, AlertTriangle } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/supabase-runtime";
 import { isPremiumActive, settingsQuery, type Area, type Category, type ExperienceOption, type ProviderWithRefs } from "@/lib/directory";
 import { input, btnGhost, useAll, isFlagged } from "./shared";
 import { WorkingHoursEditor } from "./WorkingHoursEditor";
