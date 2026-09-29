@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase-runtime";
+import { supabase } from "@/integrations/supabase/client";
 
 export const ALLOWED_PHOTO_MIME_TYPES = [
   "image/jpeg",

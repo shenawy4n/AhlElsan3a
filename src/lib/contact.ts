@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase-runtime";
+import { supabase } from "@/integrations/supabase/client";
 import { telHref, whatsappHref, normalizeEgPhone } from "@/lib/directory";
 
 export type ContactKind = "phone_click" | "whatsapp_click" | "phone_reveal";

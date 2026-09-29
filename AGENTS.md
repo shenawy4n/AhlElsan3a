@@ -11,10 +11,10 @@
 
 ## Architecture decisions
 
-- Supabase connection settings are delivered at runtime, not build time: the
-  browser client is `src/lib/supabase-runtime.ts` (config fetched from
-  `/api/public/app-config`, which reads `SUPABASE_URL` /
-  `SUPABASE_PUBLISHABLE_KEY` injected by Lovable Cloud). `.env` carries no
-  `VITE_SUPABASE_*` values — never reintroduce build-time env dependencies for
-  the backend connection, and import `{ supabase }` from
-  `@/lib/supabase-runtime`, not the generated client.
+- The backend connection uses Lovable's standard generated client: import
+  `{ supabase }` from `@/integrations/supabase/client`, which reads build-time
+  `VITE_SUPABASE_URL` / `VITE_SUPABASE_PUBLISHABLE_KEY` from `.env` (both are
+  public-by-design values). A previous runtime-fetch indirection was removed
+  because it made the first paint race the config request and intermittently
+  crash the app into the error screen.
+

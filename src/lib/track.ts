@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase-runtime";
+import { supabase } from "@/integrations/supabase/client";
 
 type EventType = "profile_view" | "phone_click" | "whatsapp_click" | "phone_reveal" | "search" | "category_view";
 

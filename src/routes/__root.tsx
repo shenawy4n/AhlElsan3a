@@ -7,20 +7,13 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { Suspense, use, useEffect, type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
-import { supabase } from "@/lib/supabase-runtime";
-import { appConfigReady } from "@/lib/app-config";
+import { supabase } from "@/integrations/supabase/client";
 
-// Waits for the runtime-fetched connection settings before any screen that
-// talks to the backend renders.
-function ConfigReady({ children }: { children: ReactNode }) {
-  use(appConfigReady);
-  return <>{children}</>;
-}
 
 function NotFoundComponent() {
   return (
@@ -132,12 +125,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Suspense fallback={null}>
-        <ConfigReady>
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
-        </ConfigReady>
-      </Suspense>
+      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <Outlet />
+
       <Toaster position="top-center" richColors />
     </QueryClientProvider>
   );
