@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Phone, MessageCircle, Eye, Search } from "lucide-react";
-import { supabase } from "@/lib/supabase-runtime";
+import { supabase } from "@/integrations/supabase/client";
 import { settingsQuery } from "@/lib/directory";
 import { ExperienceManager } from "./Lists";
 import { useAll, RangePicker, rangeStart, StatCard, input, btn, btnGhost, type Range } from "./shared";

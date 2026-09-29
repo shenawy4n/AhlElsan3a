@@ -12,7 +12,7 @@ import { Suspense, use, useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
-import { supabase } from "@/lib/supabase-runtime";
+import { supabase } from "@/integrations/supabase/client";
 import { appConfigReady } from "@/lib/app-config";
 
 // Waits for the runtime-fetched connection settings before any screen that

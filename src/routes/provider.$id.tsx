@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { ArrowRight, MapPin, Clock, Wallet, Wrench, Flag, Award } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/lib/supabase-runtime";
+import { supabase } from "@/integrations/supabase/client";
 import { isPremiumActive, providerQuery } from "@/lib/directory";
 import { PremiumBadge, VerifiedBadge, ProviderRatingBadge, EmergencyBadge } from "@/components/ProviderCard";
 import { parseWorkingHours } from "@/lib/working-hours";

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/lib/supabase-runtime";
+import { supabase } from "@/integrations/supabase/client";
 import { PROVIDER_SELECT, type Area, type Category, type ExperienceOption, type ProviderWithRefs } from "@/lib/directory";
 
 export const input = "w-full rounded-xl border border-border bg-card px-3 py-2.5 text-base";
