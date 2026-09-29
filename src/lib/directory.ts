@@ -130,6 +130,7 @@ export function providersQuery(opts: {
 }
 
 export const experienceQuery = {
+  ...LONG_LIVED,
   queryKey: ["experience"],
   queryFn: async (): Promise<ExperienceOption[]> => {
     const { data, error } = await supabase
